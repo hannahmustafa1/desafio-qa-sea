@@ -1,0 +1,15 @@
+{
+  "name": "desafio-qa-sea-api",
+  "version": "1.0.0",
+  "description": "Testes automatizados da API /employees (Postman + Newman) - Desafio QA Sea Tecnologia",
+  "scripts": {
+    "test": "newman run collections/desafio-qa.postman_collection.json -e environments/sea.postman_environment.json -r cli,htmlextra --reporter-htmlextra-export reports/relatorio.html",
+    "test:ci": "npm test -- --suppress-exit-code"
+  },
+  "author": "Hannah Mustafá de Souza",
+  "license": "MIT",
+  "devDependencies": {
+    "newman": "^6.2.3",
+    "newman-reporter-htmlextra": "^1.23.1"
+  }
+}
