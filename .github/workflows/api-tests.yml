@@ -1,0 +1,32 @@
+name: Testes de API
+
+on:
+  push:
+  workflow_dispatch: # permite rodar manualmente pela aba "Actions" do GitHub
+
+jobs:
+  api-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Instalar o Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependências
+        run: npm install
+
+      # Usa test:ci porque alguns testes falham de propósito (documentam defeitos conhecidos).
+      # O resultado completo fica no relatório HTML anexado à execução.
+      - name: Rodar os testes
+        run: npm run test:ci
+
+      - name: Publicar o relatório HTML
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-testes-api
+          path: reports/relatorio.html
